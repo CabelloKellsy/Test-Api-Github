@@ -1,0 +1,730 @@
+{
+	"info": {
+		"_postman_id": "651bcdb5-da4d-4ea3-b998-bc3e9252d309",
+		"name": "Api Localhost 3000 v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23595251"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response has the required Content-Type header\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 500ms\", function () {",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the response schema for email, firstName, lastName, createdAt, updatedAt, wishlistId, id, and links\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.email).to.be.a('string');",
+							"    pm.expect(responseData.firstName).to.be.a('string');",
+							"    pm.expect(responseData.lastName).to.be.a('string');",
+							"    pm.expect(responseData.createdAt).to.exist; // assuming createdAt is a timestamp or date",
+							"    pm.expect(responseData.updatedAt).to.exist; // assuming updatedAt is a timestamp or date",
+							"    pm.expect(responseData.wishlistId).to.be.a('number');",
+							"    pm.expect(responseData.id).to.be.a('number');",
+							"    ",
+							"    pm.expect(responseData.links).to.be.an('array');",
+							"    responseData.links.forEach(function(link) {",
+							"        pm.expect(link.rel).to.be.a('string');",
+							"        pm.expect(link.href).to.be.a('string');",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Links array is present and contains expected number of elements\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.links).to.exist.and.to.be.an('array');",
+							"  pm.expect(responseData.links).to.have.lengthOf(1);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddUsers",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {",
+							"  pm.expect(pm.response.code).to.equal(201);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData.email).to.exist;",
+							"    pm.expect(responseData.firstName).to.exist;",
+							"    pm.expect(responseData.lastName).to.exist;",
+							"    pm.expect(responseData.createdAt).to.exist;",
+							"    pm.expect(responseData.updatedAt).to.exist;",
+							"    pm.expect(responseData.wishlistId).to.exist;",
+							"    pm.expect(responseData.id).to.exist;",
+							"    pm.expect(responseData.links).to.exist;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email format is not valid\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Links array is present and contains expected number of elements\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.links).to.exist.and.to.be.an('array');",
+							"  pm.expect(responseData.links).to.have.lengthOf(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"CreatedAt and updatedAt fields are in valid date format\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.createdAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"CreatedAt should be in valid date format\");",
+							"  pm.expect(responseData.updatedAt).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/, \"UpdatedAt should be in valid date format\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"Usuario02@gmail.com\",\r\n    \"firstName\": \"Prueba\",\r\n    \"lastName\": \"apellido 02\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users por id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Content-Type header is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response is an array with at least one element\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('array').that.is.not.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Validate the user object\", function () {",
+							"    const responseData = pm.response.json();",
+							"",
+							"    pm.expect(responseData).to.be.an('array');",
+							"    ",
+							"    responseData.forEach(function(user) {",
+							"        pm.expect(user).to.be.an('object');",
+							"        pm.expect(user.email).to.be.a('string');",
+							"        pm.expect(user.firstName).to.be.a('string');",
+							"        pm.expect(user.lastName).to.be.a('string');",
+							"        pm.expect(user.householdId).to.be.a('number');",
+							"        pm.expect(user.createdAt).to.be.a('string');",
+							"        pm.expect(user.updatedAt).to.be.a('string');",
+							"        pm.expect(user.wishlistId).to.be.a('number');",
+							"        pm.expect(user.id).to.be.a('number');",
+							"        pm.expect(user.links).to.be.an('array');",
+							"        user.links.forEach(function(link) {",
+							"            pm.expect(link).to.be.an('object');",
+							"            pm.expect(link.rel).to.be.a('string');",
+							"            pm.expect(link.href).to.be.a('string');",
+							"        });",
+							"    });",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('array');",
+							"  ",
+							"  responseData.forEach(function(user) {",
+							"    pm.expect(user.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email is not in a valid format\");",
+							"  });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null,
+							"description": "404Not Found porque se elimino el recurso",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddUserRandom",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// var jsonData = JSON.parse(responseBody) //version antigua\r",
+							"var jsonData = pm.response.json() //se obtiene la data\r",
+							"\r",
+							"pm.collectionVariables.set(\"userId\", jsonData.id)\r",
+							"console.log(\"user Created:\" + pm.collectionVariables.get(\"userId\"))\r",
+							"",
+							"pm.test(\"Response status code is 201\", function () {",
+							"    pm.expect(pm.response.code).to.equal(201);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response has the required fields\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData).to.be.an('object');",
+							"    pm.expect(responseData).to.have.property('email');",
+							"    pm.expect(responseData).to.have.property('firstName');",
+							"    pm.expect(responseData).to.have.property('lastName');",
+							"    pm.expect(responseData).to.have.property('createdAt');",
+							"    pm.expect(responseData).to.have.property('updatedAt');",
+							"    pm.expect(responseData).to.have.property('wishlistId');",
+							"    pm.expect(responseData).to.have.property('id');",
+							"    pm.expect(responseData).to.have.property('links');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Email is in a valid format\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email should be in a valid format\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Links array is present and contains expected number of elements\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData).to.be.an('object');",
+							"  pm.expect(responseData.links).to.exist.and.to.be.an('array');",
+							"  pm.expect(responseData.links).to.have.lengthOf(1);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Links array contains non-empty 'rel' and 'href'\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.links).to.be.an('array');",
+							"    responseData.links.forEach(function(link) {",
+							"        pm.expect(link.rel).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"        pm.expect(link.href).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddUserRandom Json",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test agregamos 201 para capturar el estado y ver el test Results\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"userId\", jsonData.id)\r",
+							"console.log(\"User Created:\" + pm.collectionVariables.get(\"userId\"))\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//cargar data desde JSON\r",
+							"var email = data.email\r",
+							"var firstname = data.firstname\r",
+							"var lastname = data.lastname\r",
+							"\r",
+							"pm.variables.set(\"json_email\", email)\r",
+							"pm.variables.set(\"json_firstname\", firstname)\r",
+							"pm.variables.set(\"json_lastname\", lastname)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{json_email}}\",\r\n    \"firstName\": \"{{json_firstname}}\",\r\n    \"lastName\": \"{{json_lastname}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddUserRandom CSV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// test agregamos 201 para capturar el estado y ver el test Results\r",
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.collectionVariables.set(\"userId\", jsonData.id)\r",
+							"console.log(\"User Created:\" + pm.collectionVariables.get(\"userId\"))"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"//cargar data desde JSON\r",
+							"var email = data.email\r",
+							"var firstname = data.firstname\r",
+							"var lastname = data.lastname\r",
+							"\r",
+							"pm.variables.set(\"json_email\", email)\r",
+							"pm.variables.set(\"json_firstname\", firstname)\r",
+							"pm.variables.set(\"json_lastname\", lastname)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{json_email}}\",\r\n    \"firstName\": \"{{json_firstname}}\",\r\n    \"lastName\": \"{{json_lastname}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"{{$randomEmail}}\",\r\n    \"lastName\": \"{{$randomLastName}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 204\", function () {\r",
+							"  pm.expect(pm.response.to.have.status(204));\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is within an acceptable range\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/users/{{userId}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users por id",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response time is less than 500ms\", function () {\r",
+							"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "G-TOKEN",
+						"value": "ROM831ESV",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/users",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null,
+							"description": "404Not Found porque se elimino el recurso",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.headers.add({\r",
+					"    key:\"G-TOKEN\",\r",
+					"    value:\"ROM831ESV\"\r",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": ""
+		}
+	]
+}
