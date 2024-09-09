@@ -1,0 +1,708 @@
+{
+	"info": {
+		"_postman_id": "1994cd6e-61a2-41b7-b5d7-50b8df0a59db",
+		"name": "Api-GitHub",
+		"description": "Los siguientes ejercicios muestran consultas basicas con los metodos: GET, PUT, PATCH y DELETE, haciendo uso del Api-Github.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23595251"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "1.Users",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capturar información del usuario\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"user_login\", jsonData.login);\r",
+									"    pm.environment.set(\"user_id\", jsonData.id);\r",
+									"    pm.environment.set(\"user_name\", jsonData.name);\r",
+									"    pm.environment.set(\"user_bio\", jsonData.bio);\r",
+									"    pm.environment.set(\"user_location\", jsonData.location);\r",
+									"    pm.environment.set(\"user_public_repos\", jsonData.public_repos);\r",
+									"    pm.environment.set(\"user_followers\", jsonData.followers);\r",
+									"    pm.environment.set(\"user_following\", jsonData.following);\r",
+									"    \r",
+									"    console.log(\"Información del usuario:\");\r",
+									"    console.log(\"Login: \" + jsonData.login);\r",
+									"    console.log(\"ID: \" + jsonData.id);\r",
+									"    console.log(\"Nombre: \" + jsonData.name);\r",
+									"    console.log(\"Biografía: \" + jsonData.bio);\r",
+									"    console.log(\"Ubicación: \" + jsonData.location);\r",
+									"    console.log(\"Repositorios públicos: \" + jsonData.public_repos);\r",
+									"    console.log(\"Seguidores: \" + jsonData.followers);\r",
+									"    console.log(\"Siguiendo: \" + jsonData.following);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github.v3+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_github}}/users/Cabellokellsy",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"users",
+								"Cabellokellsy"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.followers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capturar información del usuario\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.environment.set(\"login\", jsonData[0].login);\r",
+									"    pm.environment.set(\"id\", jsonData[0].id);\r",
+									"    pm.environment.set(\"node_id\", jsonData[0].node_id);\r",
+									"    pm.environment.set(\"avatar_url\", jsonData[0].avatar_url);\r",
+									"    pm.environment.set(\"url\", jsonData[0].url);\r",
+									"    pm.environment.set(\"html_url\", jsonData[0].html_url);\r",
+									"    pm.environment.set(\"followers_url\", jsonData[0].followers_url);\r",
+									"    pm.environment.set(\"following_url\", jsonData[0].following_url);\r",
+									"    pm.environment.set(\"gists_url\", jsonData[0].gists_url);\r",
+									"    pm.environment.set(\"starred_url\", jsonData[0].starred_url);\r",
+									"    pm.environment.set(\"subscriptions_url\", jsonData[0].subscriptions_url);\r",
+									"    pm.environment.set(\"organizations_url\", jsonData[0].organizations_url);\r",
+									"    pm.environment.set(\"repos_url\", jsonData[0].repos_url);\r",
+									"    pm.environment.set(\"events_url\", jsonData[0].events_url);\r",
+									"    pm.environment.set(\"received_events_url\", jsonData[0].received_events_url);\r",
+									"    pm.environment.set(\"type\", jsonData[0].type);\r",
+									"    pm.environment.set(\"site_admin\", jsonData[0].site_admin);\r",
+									"\r",
+									"    console.log(\"Información del usuario:\");\r",
+									"    console.log(\"Login: \" + jsonData[0].login);\r",
+									"    console.log(\"ID: \" + jsonData[0].id);\r",
+									"    console.log(\"Node ID: \" + jsonData[0].node_id);\r",
+									"    console.log(\"Avatar URL: \" + jsonData[0].avatar_url);\r",
+									"    console.log(\"URL: \" + jsonData[0].url);\r",
+									"    console.log(\"HTML URL: \" + jsonData[0].html_url);\r",
+									"    console.log(\"Followers URL: \" + jsonData[0].followers_url);\r",
+									"    console.log(\"Following URL: \" + jsonData[0].following_url);\r",
+									"    console.log(\"Gists URL: \" + jsonData[0].gists_url);\r",
+									"    console.log(\"Starred URL: \" + jsonData[0].starred_url);\r",
+									"    console.log(\"Subscriptions URL: \" + jsonData[0].subscriptions_url);\r",
+									"    console.log(\"Organizations URL: \" + jsonData[0].organizations_url);\r",
+									"    console.log(\"Repos URL: \" + jsonData[0].repos_url);\r",
+									"    console.log(\"Events URL: \" + jsonData[0].events_url);\r",
+									"    console.log(\"Received Events URL: \" + jsonData[0].received_events_url);\r",
+									"    console.log(\"Type: \" + jsonData[0].type);\r",
+									"    console.log(\"Site Admin: \" + jsonData[0].site_admin);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github.v3+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_github}}/users/Cabellokellsy/following",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"users",
+								"Cabellokellsy",
+								"following"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.Following a user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_github}}/user/following/midudev",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"user",
+								"following",
+								"midudev"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.Update bio",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capturar y mostrar la biografía actualizada\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var updatedBio = jsonData.bio;\r",
+									"    \r",
+									"    // Guardar la biografía actualizada en una variable de entorno\r",
+									"    pm.environment.set(\"updated_bio\", updatedBio);\r",
+									"    \r",
+									"    // Mostrar la biografía actualizada en la consola\r",
+									"    console.log(\"Biografía actualizada: \" + updatedBio);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"bio\": \"Nueva biografía actualizada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_github}}/user",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Repositories",
+			"item": [
+				{
+					"name": "1.Get Repost",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capturar información del Repositorio\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    \r",
+									"    // Acceder al primer repositorio en la lista\r",
+									"    var firstRepo = jsonData[0];\r",
+									"    \r",
+									"    // Guardar la información del repositorio en variables de entorno\r",
+									"    pm.environment.set(\"name\", firstRepo.name);\r",
+									"    pm.environment.set(\"description\", firstRepo.description);\r",
+									"    \r",
+									"    // Mostrar la información del repositorio en la consola\r",
+									"    console.log(\"Información del Primer Repositorio:\");\r",
+									"    console.log(\"name: \" + firstRepo.name);\r",
+									"    console.log(\"description: \" + firstRepo.description);\r",
+									"\r",
+									"    var secondRepo = jsonData[1];\r",
+									"    pm.environment.set(\"name\", secondRepo);\r",
+									"    pm.environment.set(\"description\", secondRepo.description);\r",
+									"\r",
+									"    console.log(\"Informacion del Segundo repositorio:\");\r",
+									"    console.log(\"name:\" + secondRepo.name);\r",
+									"    console.log(\"description:\"+ secondRepo.description);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github.v3+json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_github}}/user/repos",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"user",
+								"repos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.Create Repositories",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Repository description\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.description).to.eql(\"Este es un nuevo repositorio para pruebas de API\");\r",
+									"    pm.expect(jsonData.name).to.eql(\"nuevo-repositorio-Test-Api\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github.v3+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"nuevo-repositorio-Test-Api\",\r\n    \"description\": \"Este es un nuevo repositorio para pruebas de API\",\r\n    \"private\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_github}}/user/repos",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"user",
+								"repos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.Update Information Repo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Repository description updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(jsonData.name).to.eql(\"repositorio-Actualizado-Test-Api\");\r",
+									"    pm.expect(jsonData.description).to.eql(\"Descripción actualizada del repositorio\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/vnd.github.v3+json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"repositorio-Actualizado-Test-Api\",\r\n    \"description\": \"Descripción actualizada del repositorio\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_github}}/repos/CabelloKellsy/nuevo-repositorio-Test-Api",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"repos",
+								"CabelloKellsy",
+								"nuevo-repositorio-Test-Api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 204\", function () {\r",
+									"    pm.response.to.have.status(204);\r",
+									"});\r",
+									"\r",
+									"// repositories/CabelloKellsy/nuevo-repositorio-Test-Api"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_github}}/repos/CabelloKellsy/nuevo-repositorio-Test-Api",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"repos",
+								"CabelloKellsy",
+								"nuevo-repositorio-Test-Api"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.Buscar por id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Repository description updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.description).to.eql(\"Descripción actualizada del repositorio\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Repository description updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.description).to.eql(\"Descripción actualizada del repositorio\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Repository description updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.description).to.eql(\"Descripción actualizada del repositorio\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url_github}}/repositories/846487931",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"repositories",
+								"846487931"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": null,
+									"description": "404Not Found porque se elimino el recurso",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Teams",
+			"item": [
+				{
+					"name": "Crear Teams",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.github+json",
+								"type": "text"
+							},
+							{
+								"key": "X-GitHub-Api-Version",
+								"value": "2022-11-28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"team_01Kelsy\",\r\n    \"description\": \"This is a public team - Api Rest Github\",\r\n    \"permission\": \"push\",\r\n    \"notification_setting\": \"notifications_enabled\",\r\n    \"privacy\": \"closed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_github}}/orgs/OrgdeKelsy/teams",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"orgs",
+								"OrgdeKelsy",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Teams",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.github+json",
+								"type": "text"
+							},
+							{
+								"key": "X-GitHub-Api-Version",
+								"value": "2022-11-28",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url_github}}/orgs/OrgdeKelsy/teams",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"orgs",
+								"OrgdeKelsy",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Teams",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Accept",
+								"value": "application/vnd.github+json",
+								"type": "text"
+							},
+							{
+								"key": "X-GitHub-Api-Version",
+								"value": "2022-11-28",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"new team name\",\r\n    \"description\": \"new team description\",\r\n    \"privacy\": \"closed\",\r\n    \"notification_setting\": \"notifications_enabled\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url_github}}/orgs/OrgdeKelsy/teams",
+							"host": [
+								"{{base_url_github}}"
+							],
+							"path": [
+								"orgs",
+								"OrgdeKelsy",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "inherit"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url_github",
+			"value": "https://api.github.com",
+			"type": "string"
+		},
+		{
+			"value": "https://api.github.com",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
